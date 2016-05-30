@@ -1,0 +1,23 @@
+{% load mytags %}
+
+<table align="center" border="0" width="100%" style="table-layout:fixed">
+    {% for obj in object_list %} 
+    <tr>
+        <td colspan=1 style="word-break:break-all"> 
+            {{ obj.CreateTime | to_datetime | date:"Y-m-d H:i" }}
+        </td>
+        <td colspan=1 style="word-break:break-all"> 
+            {% if obj.group_name %}
+            {{ obj.group_name }} | {{ obj.user }} -> {{ obj.to_user }}
+            {%else %}
+            {{ obj.user }} -> {{ obj.to_user }}
+            {%endif%}
+        </td>
+        <td colspan=2 style="word-break:break-all"> 
+            {{ obj.content }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<input hidden=true id="group_select_enable" value="{{ user.is_staff }}" />

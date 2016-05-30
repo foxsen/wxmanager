@@ -1,2 +1,3 @@
 # wxmanager
-A Django app to manager wx records in a database
+This is a Django app to manager Tencent weixin records in a database, which is logged by another application.
+

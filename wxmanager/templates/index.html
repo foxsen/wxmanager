@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %} 微信记录查询 {% endblock %}
+
+{% block script %}
+
+    var content_timer, status_timer;
+    function state_change(xmlhttp, div_id) {
+	    if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {  
+		    document.getElementById(div_id).innerHTML = xmlhttp.responseText;  
+            if (document.getElementById('group_select_enable').value == "True") 
+                document.getElementById('group_name').removeAttribute('disabled'); 
+             else 
+                document.getElementById('group_name').setAttribute('disabled', 'disabled');
+	    }  
+    }
+    
+    function update_content() {  
+	    var xmlhttp = new XMLHttpRequest();  
+	    xmlhttp.onreadystatechange = function() {  
+		   state_change(xmlhttp, "wxcontent")
+	    };  
+
+        query_string = "{% url 'query_content' %}?" + getRequestBody();
+	    xmlhttp.open("GET", query_string, true);  
+	    xmlhttp.send();  
+    }  
+
+    // 自动查询刷新微信记录
+    function update_content_a() {  
+           document.getElementById("query_status").value = "自动查询中";  
+	   update_content();
+	   content_timer = setTimeout("update_content_a()", 5000);
+    }
+
+    // 人工查询，停止自动刷新
+    function update_content_b() {  
+	   if (content_timer) clearTimeout(content_timer);
+           document.getElementById("query_status").value = "人工查询中";  
+	   update_content();
+    }
+ 
+    function update_status() {  
+	    var xmlhttp = new XMLHttpRequest();  
+	    xmlhttp.onreadystatechange = function() {  
+		   state_change(xmlhttp, "wxstatus")
+	    };  
+
+        xmlhttp.open("GET", "{% url 'query_status' %}", true);  
+	    xmlhttp.send();  
+	    status_timer = setTimeout("update_status()", 60000);
+    }  
+
+    //获取表单中的名值对   
+    function getRequestBody()  
+    {  
+        var s = ""
+        var ids = new Array("user","to_user","start","end","contains","group_name")
+	for (var i=0;i<ids.length;i++) {
+	  s = s + encodeURIComponent(ids[i]) + '=' + 
+              encodeURIComponent(document.getElementById(ids[i]).value);
+          if (i != ids.length - 1) s = s + '&';
+        }
+	return s
+    }  
+  {% endblock %}
+
+  {% block content %}
+
+    <table align="center" border="0" width="100%" style="table-layout:fixed">
+    <tr><td colspan=3>
+    <form id="form1">
+      <table align="center" border="0" width="100%">
+          <tr>	
+              <th>发送消息用户名：</th>
+              <td><input type="text" name="user" id="user"/></td>
+              <th>接收消息用户名：</th>
+              <td><input type="text" name="to_user" id="to_user"/></td>
+         </tr>
+          <tr>	
+              <th>起始时间(年-月-日 时:分):</th>
+              <td><input type="text" name="start" id="start"/></td>
+              <th>结束时间(年-月-日 时:分):</th>
+              <td><input type="text" name="end" id="end"/></td>
+         </tr>
+          <tr>	
+              <th>正文含有:</th>
+              <td><input type="text" name="contains" id="contains"/></td>
+              <th>群名含有:</th>
+              <td><input type="text" name="group_name" id="group_name" disabled="disabled"/></td>
+         </tr>
+   	 <tr>	
+           <th>页面状态:</th>
+           <td><input type="button" id="query_status" value="自动查询中" style="border:0" disabled="disabled"/></td>
+           <td>
+             <input type="button" name="query" value="人工查询" onClick="update_content_b();"/>
+           </td>
+           <td>
+            <input type="button" value="自动查询" id="auto_control"/ onClick="update_content_a()"/>
+           </td>
+         </tr>
+	 <tr>
+	   <td align="center" colspan=4> 输入查询条件，按“查询”检索指定条件下的微信记录。各条件是与的关系，空着表示没有该条件。<br/> 全部空着查最新消息。每次查询最多产生50条结果，从新到旧排列</td>
+    </table>
+  </form>
+  </td>
+  <td colspan=1>
+  服务器状态： 
+  {% if user.is_superuser %}
+  //<input type="button" onClick="restart_server()" value="重启服务"/>
+  {% endif %}
+  <div id="wxstatus">查询中...</div>
+   </td>
+  </table>
+  <div id="wxcontent">
+      {% include "content_list.html" %}
+  </div>
+  <script>
+      update_status()
+      update_content()
+  </script>
+  {% endblock %}
+

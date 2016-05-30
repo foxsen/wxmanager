@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title%} 微信记录管理 {% endblock %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+{% csrf_token %}
+<table align="center">
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+</tr>
+<tr>
+    <td>
+<input type="submit" value="login" / align="center">
+<input type="hidden" name="next" value="{{ next }}" align="center"/>
+    </td>
+</tr>
+</table>
+
+</form>
+
+{% endblock %}
