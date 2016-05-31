@@ -16,10 +16,12 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 import django.contrib.auth.views
+import wxmanager.views
 
 urlpatterns = [
+    url(r'^$', wxmanager.views.IndexView.as_view()),
     url(r'^wxmanager/', include('wxmanager.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^login/$', django.contrib.auth.views.login, {'template_name':'login.html'}),
+    url(r'^login/*$', django.contrib.auth.views.login, {'template_name':'login.html'}),
     url(r'^logout/$',django.contrib.auth.views.logout, {'template_name':'logout.html'}),
 ]

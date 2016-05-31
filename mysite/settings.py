@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'f=@9xn0!pm#w(jpz7e6=6r85mpte=&y-+dcm$jl*(w&#&pol(h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.foxsen.lemote.com', '.foxsen.lemote.com.']
 
 
 # Application definition
@@ -121,6 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/var/www/html/wxlogger/saved/'
 
 ## for auth login/logout
 LOGIN_URL = '/login'
