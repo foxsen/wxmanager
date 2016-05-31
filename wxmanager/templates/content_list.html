@@ -8,13 +8,13 @@
         </td>
         <td colspan=1 style="word-break:break-all"> 
             {% if obj.group_name %}
-            {{ obj.group_name }} | {{ obj.user }} -> {{ obj.to_user }}
+            {{ obj.group_name }} | {{ obj.user }} 
             {%else %}
             {{ obj.user }} -> {{ obj.to_user }}
             {%endif%}
         </td>
         <td colspan=2 style="word-break:break-all"> 
-            {{ obj.content }}
+            {{ obj.content | safe }}
         </td>
     </tr>
     {% endfor %}
