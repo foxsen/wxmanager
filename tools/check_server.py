@@ -18,11 +18,9 @@ for line in p.stdout.readlines():
 #print output
 
 if (output.find('active (running)') >= 0):
-    if (os.path.exists('/var/www/html/wxlogger/saved/logging')):
-       print ('等待登录中，请用微信扫描下列二维码：<br/>'
-               '<image src="/wxlogger/saved/qrcodes/qrcode.jpg?%s"'
-               ' alt="登录二维码"/>' % time.time())
-    elif(os.path.exists('/var/www/html/wxlogger/saved/initing')): 
+    if (os.path.exists('/var/www/html/wxlogger/saved/status/logging')):
+       print ('等待管理员启动服务。。。')
+    elif(os.path.exists('/var/www/html/wxlogger/saved/status/initing')): 
        print  '  正在初始化。。。'
     else:
     	print '  运行中。。。'
