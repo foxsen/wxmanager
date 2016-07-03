@@ -5,8 +5,8 @@
 1. 一个Django写的网页前端。它可以查询记录在数据库中的微信记录,可以设置按时间、发言人、群名等不同的查询条件，也可以设置自动刷新已达到直播的效果。
 
 Screenshort:
-    ![image](https://github.com/foxsen/wxmanager/raw/master/screenshots/screen1.jpg)
-
+    ![image](https://github.com/foxsen/wxmanager/blob/master/screenshots/page1.jpg)
+	
 2. 一个python写的微信记录抓取后端。它由[WeixinBot](https://github.com/Urinxs/WeixinBot)项目改造而来，利用微信网页版的接口获取指定账户的所有微信信息，解析后存入数据库。有关接口的文档，可以参见WeixinBot项目。
 
 主要的修改包括：
