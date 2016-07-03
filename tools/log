@@ -1,0 +1,8 @@
+wxlogger.service - Weixin logger service
+   Loaded: loaded (/etc/systemd/system/wxlogger.service; disabled)
+      Active: active (running) since 一 2016-06-06 19:25:11 HKT; 1 weeks 5 days ago
+       Main PID: 30824 (python)
+          CGroup: /system.slice/wxlogger.service
+                     ├─30824 python /home/fxzhang/WeixinBot/weixin.py
+                                └─30834 python /home/fxzhang/WeixinBot/weixin.py
+

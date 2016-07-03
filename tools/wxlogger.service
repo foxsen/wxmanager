@@ -1,0 +1,17 @@
+[Unit]
+Description=Weixin logger service
+After=syslog.target
+
+[Service]
+Type=simple
+# change to real user and group
+#User=user
+#Group=user
+# change to your directory
+WorkingDirectory=/home/user/wxmanager/wxlogger
+ExecStart=/home/user/wxmanager/wxlogger/weixin.py
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
