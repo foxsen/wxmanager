@@ -1,5 +1,10 @@
 # wxmanager
 
+## 不再推荐使用，本项目原参考的[weixinbot项目]((https://github.com/Urinxs/WeixinBot)一直在发展，已经把这个项目改进的地方基本都实现了（稳定性、web服务等），并作了不少其他的完善，而且作者比较积极维护该项目。本人几乎不再研究相关内容。近期想帮朋友搭一套，发现几个问题：
+
+* 文档写得不是很充分，几个部分之间没有统一设置路径的方法，容易不同步，新手不容易上手。自己久了忘记了都要折腾一会。
+* 这种记录微信的方式还是存在一定的风险。碰到过被微信当做机器人暂时禁用账号网络访问，或者由于网址的原因不能成功登录（比如现在代码里用https://login.weixin.qq.com/jslogin,一直返回1102无法synccheck，要改成https://login.wx.qq.com/jslogin)等，微信网页版的API也未必一直稳定。
+
 这是一套用于记录和管理微信的工具，它包括三个部分：
 
 1. 一个Django写的网页前端。它可以查询记录在数据库中的微信记录,可以设置按时间、发言人、群名等不同的查询条件，也可以设置自动刷新已达到直播的效果。
@@ -38,7 +43,8 @@ Screenshort:
 	<Directory /var/www/html/wxlogger/saved>
 		Require all granted
 	</Directory>
-
+  
+        #如果不是在网站根目录，以下/要改为具体目录
 	WSGIScriptAlias / /home/fxzhang/wxmanager/mysite/wsgi.py
 	WSGIPythonPath /home/fxzhang/wxmanager/
 
@@ -48,7 +54,7 @@ Screenshort:
 		</Files>
 	</Directory>
 
-其中，假设wxlogger把静态文件（微信中的图片语音视频等）放到/var/www/html/wxlogger/saved/目录下，采用的链接前缀是/static。同时，还需要使能mod_wsgi。
+其中，假设wxlogger把静态文件（微信中的图片语音视频等）放到/var/www/html/wxlogger/saved/目录下，采用的链接前缀是/static。同时，还需要使能mod_wsgi。修改了存放微信图片等信息的目录之后，网站配置文件、抓取程序wxlogger和脚本等都要同步修改其中的目录设置。
 
 2. 抓取后端
 
