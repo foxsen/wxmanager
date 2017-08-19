@@ -43,8 +43,7 @@ Screenshort:
 	<Directory /var/www/html/wxlogger/saved>
 		Require all granted
 	</Directory>
-  
-        #如果不是在网站根目录，以下/要改为具体目录
+	
 	WSGIScriptAlias / /home/fxzhang/wxmanager/mysite/wsgi.py
 	WSGIPythonPath /home/fxzhang/wxmanager/
 
@@ -54,7 +53,7 @@ Screenshort:
 		</Files>
 	</Directory>
 
-其中，假设wxlogger把静态文件（微信中的图片语音视频等）放到/var/www/html/wxlogger/saved/目录下，采用的链接前缀是/static。同时，还需要使能mod_wsgi。修改了存放微信图片等信息的目录之后，网站配置文件、抓取程序wxlogger和脚本等都要同步修改其中的目录设置。
+其中，假设wxlogger把静态文件（微信中的图片语音视频等）放到/var/www/html/wxlogger/saved/目录下，采用的链接前缀是/static。同时，还需要使能mod_wsgi。如果不是在网站根目录，WSGIScriptAlias /要改为具体子目录。修改了存放微信图片等信息的目录之后，网站配置文件、抓取程序wxlogger和脚本等都要同步修改其中的目录设置。
 
 2. 抓取后端
 
